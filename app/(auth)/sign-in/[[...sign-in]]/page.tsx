@@ -17,7 +17,7 @@ export default function SignInPage() {
         </svg>
       </div>
       <div className="flex flex-col items-center justify-center flex-1">
-        <SignIn redirectUrl="/home" signUpUrl="/sign-up" />
+        <SignIn redirectUrl="/profile" signUpUrl="/sign-up" />
       </div>
     </div>
   );
