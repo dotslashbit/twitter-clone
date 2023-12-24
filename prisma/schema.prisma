@@ -13,7 +13,8 @@ generator client {
 
 model Tweet {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  username  String
   content      String
+  createdAt DateTime @default(now())
 }
 

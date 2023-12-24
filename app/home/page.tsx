@@ -13,7 +13,14 @@ const HomePage = async () => {
       </form>
       <ul>
         {tweets.map((tweet) => {
-          return <li key={tweet.id}>{tweet.content}</li>;
+          return (
+            <li key={tweet.id}>
+              <div>
+                <p>{tweet.username}</p>
+                <p>{tweet.content}</p>
+              </div>
+            </li>
+          );
         })}
       </ul>
     </div>
