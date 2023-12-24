@@ -17,9 +17,3 @@ model Tweet {
   content      String
 }
 
-model Profile {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  username  String   @unique
-  bio       String?
-}
