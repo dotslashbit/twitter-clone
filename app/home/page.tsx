@@ -27,7 +27,10 @@ const HomePage = async () => {
           return (
             <li key={tweet.id} className="border-b-2 border-gray-200 py-2">
               <div>
-                <p>{tweet.username}</p>
+                <div className="flex items-center gap-5">
+                  <p>{tweet.name}</p>
+                  <p>@{tweet.username}</p>
+                </div>
                 <p>{tweet.content}</p>
               </div>
             </li>
