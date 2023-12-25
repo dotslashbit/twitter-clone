@@ -1,4 +1,6 @@
 import { createTweet, getTweets } from "@/actions/createTweet";
+import { getLikes } from "@/actions/likes";
+import Like from "@/components/Like";
 import TweetForm from "@/components/TweetForm";
 import { currentUser } from "@clerk/nextjs";
 import React from "react";
@@ -6,7 +8,8 @@ import React from "react";
 const HomePage = async () => {
   const tweets = await getTweets();
   const user = await currentUser();
-  console.log(user);
+
+  // console.log(user);
   return (
     <div className="flex flex-col items-center">
       <TweetForm />
@@ -28,7 +31,8 @@ const HomePage = async () => {
                   </div>
                 </div>
                 <p>{tweet.content}</p>
-                <button className="text-blue-500 hover:underline">Like</button>
+
+                <Like tweetId={tweet.id} />
               </div>
             </li>
           );
