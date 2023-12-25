@@ -11,11 +11,9 @@ export const addLikes = async (tweetId) => {
   });
 };
 
-// export const getLikes = async (tweetId) => {
-//   const likes = await prisma.like.findMany({
-//     where: {
-//       tweetId: tweetId as number,
-//     },
-//   });
-//   return likes;
-// };
+export const getLikes = async () => {
+  const likes = await prisma.like.findMany();
+  console.log(likes);
+  return likes;
+  // return length(likes);
+};

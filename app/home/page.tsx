@@ -8,6 +8,11 @@ import React from "react";
 const HomePage = async () => {
   const tweets = await getTweets();
   const user = await currentUser();
+  const likes = await getLikes();
+
+  const countLikes = (tweetId) => {
+    return likes.filter((like) => like.tweetId === tweetId).length;
+  };
 
   // console.log(user);
   return (
@@ -31,7 +36,7 @@ const HomePage = async () => {
                   </div>
                 </div>
                 <p>{tweet.content}</p>
-
+                <p>{countLikes(tweet.id)} likes</p>
                 <Like tweetId={tweet.id} />
               </div>
             </li>
