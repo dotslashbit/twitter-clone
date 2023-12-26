@@ -24,7 +24,7 @@ const Like = ({ tweetId }) => {
 
   return (
     <div>
-      <p>1</p>
+      {/* <p>1</p> */}
       <button onClick={handleLike}>Like</button>
     </div>
   );

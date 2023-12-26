@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 export const addLikes = async (tweetId) => {
   console.log(typeof tweetId);
@@ -9,6 +10,7 @@ export const addLikes = async (tweetId) => {
       tweetId: tweetId as number,
     },
   });
+  revalidatePath("/home");
 };
 
 export const getLikes = async () => {
