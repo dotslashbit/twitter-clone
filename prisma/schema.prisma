@@ -17,6 +17,7 @@ model Tweet {
   content      String
   createdAt DateTime @default(now())
   likes     Like[]
+  comments Comment[]
 
 }
 
@@ -25,5 +26,14 @@ model Like {
   tweetId   Int
   createdAt DateTime @default(now())
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  @@index([tweetId])
+}
+
+model Comment {
+  id  Int @id @default(autoincrement())
+  tweetId Int
+  content String
+  createdAt DateTime @default(now())
+  tweet Tweet @relation(fields: [tweetId], references: [id])
   @@index([tweetId])
 }
