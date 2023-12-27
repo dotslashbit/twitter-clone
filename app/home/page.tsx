@@ -7,10 +7,12 @@ import { currentUser } from "@clerk/nextjs";
 import React from "react";
 import { getComments } from "@/actions/createComment";
 import Link from "next/link";
+import { createUser } from "@/actions/createUser";
 
 const HomePage = async () => {
   const tweets = await getTweets();
   const user = await currentUser();
+
   const likes = await getLikes();
   const comments = await getComments();
 
