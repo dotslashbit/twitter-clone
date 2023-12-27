@@ -6,6 +6,7 @@ import CommentForm from "@/components/CommentForm";
 import { currentUser } from "@clerk/nextjs";
 import React from "react";
 import { getComments } from "@/actions/createComment";
+import Link from "next/link";
 
 const HomePage = async () => {
   const tweets = await getTweets();
@@ -28,7 +29,7 @@ const HomePage = async () => {
       <ul className="mt-4 w-full max-w-md">
         {tweets.map((tweet) => {
           return (
-            <li key={tweet.id} className="border-b-2 border-gray-200 py-2">
+            <Link href={`/${tweet.id}`} key={tweet.id}>
               <div>
                 <div className="flex items-center gap-1">
                   <img
@@ -46,14 +47,12 @@ const HomePage = async () => {
                 <CommentForm tweetId={tweet.id} />
                 <p>{countLikes(tweet.id)} likes</p>
                 <p>{countcomments(tweet.id)} comments</p>
-                <Like tweetId={tweet.id} />
               </div>
-            </li>
+            </Link>
           );
         })}
       </ul>
     </div>
   );
 };
-
 export default HomePage;
