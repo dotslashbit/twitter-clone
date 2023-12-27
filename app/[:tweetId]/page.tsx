@@ -27,6 +27,7 @@ const TweetDetailPage = async () => {
   };
 
   console.log(tweet);
+  console.log(tweetId);
   return (
     <div>
       <div className="flex items-center gap-1">
@@ -43,7 +44,8 @@ const TweetDetailPage = async () => {
         <p className="text-white">@{tweet?.username}</p>
       </div>
       <p>{tweet?.content}</p>
-      <CommentForm tweetId={tweetId} />
+      {/* {console.log(tweetId)} */}
+      {/* <CommentForm tweetId={tweetId} /> */}
       <p>{countLikes(tweetId)} likes</p>
       <p>{countcomments(tweetId)} comments</p>
       <ul className="mt-4 w-full max-w-md">

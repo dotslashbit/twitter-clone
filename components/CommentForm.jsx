@@ -4,6 +4,7 @@ import { createComment } from "@/actions/createComment";
 import React from "react";
 
 const CommentForm = ({ tweetId }) => {
+  console.log("this is tweetId", tweetId);
   return (
     <form
       action={async (FormData) => {
