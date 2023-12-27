@@ -16,6 +16,8 @@ const HomePage = async () => {
   const likes = await getLikes();
   const comments = await getComments();
 
+  await createUser(user?.id);
+
   const countLikes = (tweetId) => {
     return likes.filter((like) => like.tweetId === tweetId).length;
   };

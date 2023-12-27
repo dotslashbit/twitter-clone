@@ -12,10 +12,12 @@ export const createComment = async (formData: FormData, tweetId) => {
   // console.log(formData.get("comment"));
 
   const content = formData.get("comment");
+  const userId = user.id;
 
   console.log(formData);
   await prisma.comment.create({
     data: {
+      userId: userId as string,
       tweetId: tweetId as number,
       content: content as string,
     },
