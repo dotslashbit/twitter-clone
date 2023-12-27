@@ -24,14 +24,13 @@ const HomePage = async () => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
 
-  // console.log(user);
   return (
     <div className="flex flex-col items-center">
       <TweetForm />
       <ul className="mt-4 w-full max-w-md">
-        {tweets.map((tweet) => {
-          return (
-            <Link href={`/${tweet.id}`} key={tweet.id}>
+        {tweets.map((tweet) => (
+          <div key={tweet.id}>
+            <Link href={`/${tweet.id}`}>
               <div>
                 <div className="flex items-center gap-1">
                   <img
@@ -46,15 +45,17 @@ const HomePage = async () => {
                   </div>
                 </div>
                 <p>{tweet.content}</p>
-                <CommentForm tweetId={tweet.id} />
-                <p>{countLikes(tweet.id)} likes</p>
-                <p>{countcomments(tweet.id)} comments</p>
               </div>
             </Link>
-          );
-        })}
+            <CommentForm tweetId={tweet.id} />
+            <p>{countLikes(tweet.id)} likes</p>
+            <Like tweetId={tweet.id} />
+            <p>{countcomments(tweet.id)} comments</p>
+          </div>
+        ))}
       </ul>
     </div>
   );
 };
+
 export default HomePage;
