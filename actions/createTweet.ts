@@ -11,9 +11,12 @@ export const createTweet = async (formData: FormData) => {
     throw new Error("You must be signed in to use this feature");
   }
 
+  const userId = user.id;
+
   const content = formData.get("tweet");
   await prisma.tweet.create({
     data: {
+      userId: userId as string,
       username: username as string,
       content: content as string,
     },
