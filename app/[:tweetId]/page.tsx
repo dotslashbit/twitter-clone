@@ -14,7 +14,7 @@ const TweetDetailPage = async () => {
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
 
-  const getCommentsForCurrentTweet = (tweetId) => {
+  const commentsForCurrentTweet = (tweetId) => {
     return comments.filter((comment) => comment.tweetId === tweetId);
   };
 
@@ -26,7 +26,6 @@ const TweetDetailPage = async () => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
 
-  console.log(getCommentsForCurrentTweet(4));
   console.log(tweet);
   return (
     <div>
@@ -47,6 +46,15 @@ const TweetDetailPage = async () => {
       <CommentForm tweetId={tweetId} />
       <p>{countLikes(tweetId)} likes</p>
       <p>{countcomments(tweetId)} comments</p>
+      <ul className="mt-4 w-full max-w-md">
+        {commentsForCurrentTweet(tweetId).map((comment) => {
+          return (
+            <div key={comment.id}>
+              <p>{comment.content}</p>
+            </div>
+          );
+        })}
+      </ul>
     </div>
   );
 };
