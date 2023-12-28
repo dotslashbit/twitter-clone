@@ -3,18 +3,19 @@ import CommentForm from "./CommentForm";
 import Like from "./Like";
 import { createUser } from "@/actions/createUser";
 import { getTweets } from "@/actions/createTweet";
-import { currentUser } from "@clerk/nextjs";
+import { clerkClient, currentUser } from "@clerk/nextjs";
 import { getLikes } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
 
 const TweetsList = async ({ tweetId }) => {
   const tweets = await getTweets();
-  const user = await currentUser();
 
   const likes = await getLikes();
   const comments = await getComments();
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
+  const userId = tweet.userId;
+  const user = clerkClient.users.getUser(userId);
 
   await createUser(user?.id);
   const countLikes = (tweetId) => {
