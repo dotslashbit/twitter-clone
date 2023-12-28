@@ -3,6 +3,7 @@ import { getTweets } from "@/actions/createTweet";
 import { getLikes } from "@/actions/likes";
 import CommentForm from "@/components/CommentForm";
 import { headers } from "next/headers";
+import { clerkClient, currentUser } from "@clerk/nextjs";
 
 const TweetDetailPage = async () => {
   const headersList = headers();
@@ -28,20 +29,24 @@ const TweetDetailPage = async () => {
 
   console.log(tweet);
   console.log(tweetId);
+  if (tweet === null) {
+    return <div>loading...</div>;
+  }
+  const tweetCreator = await clerkClient.users.getUser(tweet.userId);
   return (
     <div>
       <div className="flex items-center gap-1">
-        {/* <img
-          src={tweet?.u}
+        <img
+          src={tweetCreator.imageUrl}
           alt="image url"
           className="w-10 h-10 rounded-full"
-        /> */}
+        />
 
         {/* <div className="flex items-center gap-5">
           <p>{`${user?.firstName} ${user?.lastName}`}</p>
           <p className="text-sm">@{tweet.username}</p>
         </div> */}
-        <p className="text-white">@{tweet?.username}</p>
+        <p className="text-white">@{tweetCreator.username}</p>
       </div>
       <p>{tweet?.content}</p>
       {/* {console.log(tweetId)} */}

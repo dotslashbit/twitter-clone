@@ -1,6 +1,8 @@
 // components/Like.tsx
 "use client";
 import { addLikes, getLikes } from "@/actions/likes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Like = ({ tweetId }) => {
   const handleLike = async () => {
@@ -25,7 +27,12 @@ const Like = ({ tweetId }) => {
   return (
     <div>
       {/* <p>1</p> */}
-      <button onClick={handleLike}>Like</button>
+      <button
+        className="flex items-center text-blue-500 hover:text-blue-700 focus:outline-none"
+        onClick={handleLike}
+      >
+        <FontAwesomeIcon icon={faHeart} className="mr-1 text-sm" />
+      </button>
     </div>
   );
 };
