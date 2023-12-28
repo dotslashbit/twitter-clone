@@ -13,6 +13,8 @@ const TweetDetailPage = async () => {
   const pathname = headersList.get("next-url");
   const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
 
+  console.log(tweets);
+
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
 
   const commentsForCurrentTweet = (tweetId) => {
