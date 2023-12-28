@@ -16,6 +16,7 @@ const HomePage = async () => {
 
   const likes = await getLikes();
   const comments = await getComments();
+  console.log(user?.id);
 
   await createUser(user?.id);
 

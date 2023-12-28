@@ -15,9 +15,11 @@ const TweetsList = async ({ tweetId }) => {
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
   const userId = tweet.userId;
-  const user = clerkClient.users.getUser(userId);
+  console.log("userId", userId);
+  const user = await clerkClient.users.getUser(userId);
+  console.log("user", user);
 
-  await createUser(user?.id);
+  // await createUser(user?.id);
   const countLikes = (tweetId) => {
     return likes.filter((like) => like.tweetId === tweetId).length;
   };
