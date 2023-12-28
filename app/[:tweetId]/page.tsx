@@ -3,15 +3,15 @@ import { getTweets } from "@/actions/createTweet";
 import { getLikes } from "@/actions/likes";
 import CommentForm from "@/components/CommentForm";
 import { headers } from "next/headers";
-import { clerkClient, currentUser } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs";
 
 const TweetDetailPage = async () => {
-  const headersList = headers();
-  const pathname = headersList.get("next-url");
-  const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
   const tweets = await getTweets();
   const comments = await getComments();
   const likes = await getLikes();
+  const headersList = headers();
+  const pathname = headersList.get("next-url");
+  const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
 
@@ -29,7 +29,7 @@ const TweetDetailPage = async () => {
 
   console.log(tweet);
   console.log(tweetId);
-  if (tweet === null) {
+  if (tweet === undefined) {
     return <div>loading...</div>;
   }
   const tweetCreator = await clerkClient.users.getUser(tweet.userId);
