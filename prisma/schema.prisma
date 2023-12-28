@@ -12,7 +12,8 @@ generator client {
 }
 
 model User {
-  id  String @id 
+  id  String @id
+  username String
 }
 
 model Tweet {
