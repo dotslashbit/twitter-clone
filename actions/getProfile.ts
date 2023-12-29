@@ -32,3 +32,12 @@ export const getProfile = async (username: string) => {
 
   return user;
 };
+
+export const getTweetsForProfile = async (username: string) => {
+  const tweets = await prisma.tweet.findMany({
+    where: {
+      username: username as string,
+    },
+  });
+  return tweets;
+};
