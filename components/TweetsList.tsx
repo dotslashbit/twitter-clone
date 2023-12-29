@@ -39,7 +39,9 @@ const TweetsList = async ({ tweetId }) => {
             />
 
             <div className="flex items-center gap-5">
-              <p className="font-bold">{`${user?.firstName} ${user?.lastName}`}</p>
+              <Link href={`/profile/${tweet?.username}`}>
+                <p className="font-bold">{`${user?.firstName} ${user?.lastName}`}</p>
+              </Link>
               <p className="text-sm text-gray-500">@{tweet.username}</p>
             </div>
           </div>
