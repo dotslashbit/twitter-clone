@@ -1,6 +1,16 @@
 import React from "react";
+import Like from "./Like";
 
-const TweetList = ({ tweet, user }) => {
+const TweetList = ({ tweet, user, tweetId, likes, comments }) => {
+  console.log("tweet", tweetId);
+  const countLikes = (tweetId) => {
+    return likes.filter((like) => like.tweetId === tweetId).length;
+  };
+
+  const countcomments = (tweetId) => {
+    return comments.filter((comment) => comment.tweetId === tweetId).length;
+  };
+
   return (
     <li>
       <div className="flex items-center gap-4 text-white">
@@ -13,6 +23,13 @@ const TweetList = ({ tweet, user }) => {
       </div>
 
       <p className="ml-14 text-white">{tweet.content}</p>
+      <div className="flex gap-5 my-1">
+        <p className="text-xs text-gray-500">{countLikes(tweetId)} likes</p>
+        <p className="text-xs text-gray-500">
+          {countcomments(tweetId)} comments
+        </p>
+      </div>
+      <Like classname="text-blue-500 cursor-pointer" tweetId={tweetId} />
     </li>
   );
 };
