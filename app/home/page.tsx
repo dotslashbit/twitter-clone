@@ -1,9 +1,7 @@
 import { getTweets } from "@/actions/createTweet";
-import { getLikes } from "@/actions/likes";
 import TweetForm from "@/components/TweetForm";
 import { currentUser } from "@clerk/nextjs";
 import React from "react";
-import { getComments } from "@/actions/createComment";
 import { createUser } from "@/actions/createUser";
 import TweetsList from "@/components/TweetsList";
 
