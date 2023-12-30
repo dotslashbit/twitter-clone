@@ -1,7 +1,6 @@
 import { getComments } from "@/actions/createComment";
 import { getTweets } from "@/actions/createTweet";
 import { getLikes } from "@/actions/likes";
-import CommentForm from "@/components/CommentForm";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/nextjs";
 
@@ -17,20 +16,18 @@ const TweetDetailPage = async () => {
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
 
-  const commentsForCurrentTweet = (tweetId) => {
+  const commentsForCurrentTweet = ({ tweetId }: { tweetId: number }) => {
     return comments.filter((comment) => comment.tweetId === tweetId);
   };
 
-  const countLikes = (tweetId) => {
+  const countLikes = ({ tweetId }: { tweetId: number }) => {
     return likes.filter((like) => like.tweetId === tweetId).length;
   };
 
-  const countcomments = (tweetId) => {
+  const countcomments = ({ tweetId }: { tweetId: number }) => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
 
-  console.log(tweet);
-  console.log(tweetId);
   if (tweet === undefined) {
     return <div>loading...</div>;
   }
