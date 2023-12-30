@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
 
-export const createUser = async (id) => {
+export const createUser = async ({ id }: { id: string }) => {
   // Check if a user with the given ID already exists
   let user = await prisma.user.findUnique({
     where: { id },
