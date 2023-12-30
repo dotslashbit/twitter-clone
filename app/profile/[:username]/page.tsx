@@ -6,13 +6,44 @@ import TweetList from "@/components/TweetList";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+type Tweet = {
+  id: number;
+  userId: string;
+  username: string;
+  content: string;
+  createdAt: Date;
+};
+
+type User = {
+  id: string;
+  username: string;
+  profileImg: string;
+  firstName: string | null;
+  lastName: string | null;
+};
+
+type Comment = {
+  id: number;
+  userId: string;
+  tweetId: number;
+  content: string;
+  createdAt: Date;
+};
+
+type Like = {
+  id: number;
+  userId: string;
+  tweetId: number;
+  createdAt: Date;
+};
+
 const ProfilePage = () => {
   const pathname = usePathname();
   const username = pathname.split("/")[2];
-  const [user, setUser] = useState(null);
-  const [tweets, setTweets] = useState([]);
-  const [likes, setLikes] = useState([]);
-  const [comments, setComments] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [tweets, setTweets] = useState<Tweet[]>([]);
+  const [likes, setLikes] = useState<Like[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [userLoading, setUserLoading] = useState(true);
   const [tweetsLoading, setTweetsLoading] = useState(true);
   const [likesLoading, setLikesLoading] = useState(true);
@@ -40,7 +71,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchLikes = async () => {
-      const likes = await getLikes(username);
+      const likes = await getLikes();
       setLikes(likes);
       setLikesLoading(false);
     };
@@ -50,7 +81,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      const comments = await getComments(username);
+      const comments = await getComments();
       setComments(comments);
       setCommentsLoading(false);
     };
@@ -67,15 +98,15 @@ const ProfilePage = () => {
     <div className="flex flex-col items-center p-8  text-gray-800">
       <img
         className="w-48 h-48 rounded-full object-cover"
-        src={user.profileImg}
+        src={user?.profileImg}
         alt="user image"
       />
       <div className="mt-4 text-center text-white">
         <div className="flex gap-1 font-bold">
-          <p className="text-lg">{user.firstName}</p>
-          <p className="text-lg">{user.lastName}</p>
+          <p className="text-lg">{user?.firstName}</p>
+          <p className="text-lg">{user?.lastName}</p>
         </div>
-        <p className="text-xl">@{user.username}</p>
+        <p className="text-xl">@{user?.username}</p>
       </div>
       <ul className="mt-4 w-full max-w-md">
         {tweets.map((tweet) => (
