@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
-export const addLikes = async ({ tweetId }: { tweetId: number }) => {
+export const addLikes = async (tweetId: number) => {
   const user = await currentUser();
   if (!user) {
     throw new Error("You must be signed in to use this feature");

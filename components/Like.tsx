@@ -4,7 +4,7 @@ import { addLikes, getLikes } from "@/actions/likes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const Like = ({ tweetId }) => {
+const Like = ({ tweetId }: { tweetId: number }) => {
   const handleLike = async () => {
     console.log("Like button clicked");
     try {
