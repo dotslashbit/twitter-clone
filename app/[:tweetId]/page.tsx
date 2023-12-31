@@ -12,23 +12,26 @@ const TweetDetailPage = async () => {
   const pathname = headersList.get("next-url");
   const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
 
-  console.log(tweets);
+  console.log(likes);
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
 
-  const commentsForCurrentTweet = ({ tweetId }: { tweetId: number }) => {
+  const commentsForCurrentTweet = (tweetId: number) => {
     return comments.filter((comment) => comment.tweetId === tweetId);
   };
 
-  const countLikes = ({ tweetId }: { tweetId: number }) => {
+  const countLikes = (tweetId: number) => {
     return likes.filter((like) => like.tweetId === tweetId).length;
   };
 
-  const countcomments = ({ tweetId }: { tweetId: number }) => {
+  const countcomments = (tweetId: number) => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
 
   if (tweet === undefined) {
+    return <div>loading...</div>;
+  }
+  if (tweetId === null || tweet === undefined) {
     return <div>loading...</div>;
   }
   const tweetCreator = await clerkClient.users.getUser(tweet.userId);
