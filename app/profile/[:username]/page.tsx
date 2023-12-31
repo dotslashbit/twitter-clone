@@ -5,7 +5,7 @@ import { getComments } from "@/actions/createComment";
 import TweetList from "@/components/TweetList";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { onFollow } from "@/actions/follow";
+import { getFollowers, onFollow } from "@/actions/follow";
 
 type Tweet = {
   id: number;
@@ -38,6 +38,13 @@ type Like = {
   createdAt: Date;
 };
 
+type Follower = {
+  id: number;
+  followerId: string;
+  followingId: string;
+  createdAt: Date;
+};
+
 const ProfilePage = () => {
   const pathname = usePathname();
   const username = pathname.split("/")[2];
@@ -49,6 +56,8 @@ const ProfilePage = () => {
   const [tweetsLoading, setTweetsLoading] = useState(true);
   const [likesLoading, setLikesLoading] = useState(true);
   const [commentsLoading, setCommentsLoading] = useState(true);
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [followersLoading, setFollowersLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -90,7 +99,28 @@ const ProfilePage = () => {
     fetchComments();
   }, [username]);
 
-  if (userLoading || tweetsLoading || likesLoading || commentsLoading) {
+  useEffect(() => {
+    const fetchFollowers = async () => {
+      if (!user) {
+        return;
+      }
+      const followers = await getFollowers(user.username);
+      setFollowers(followers);
+      setFollowersLoading(false);
+    };
+
+    if (user) {
+      fetchFollowers();
+    }
+  }, [user]);
+
+  if (
+    userLoading ||
+    tweetsLoading ||
+    likesLoading ||
+    commentsLoading ||
+    followersLoading
+  ) {
     return <div>Loading...</div>;
   }
 
@@ -108,6 +138,7 @@ const ProfilePage = () => {
           <p className="text-lg">{user?.lastName}</p>
         </div>
         <p className="text-xl">@{user?.username}</p>
+        <p className="text-lg">Followers: {followers.length}</p>
       </div>
       <form action={onFollow}>
         <input type="hidden" name="followingId" value={user?.id} />

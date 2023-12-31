@@ -17,3 +17,14 @@ export const onFollow = async (formData: FormData) => {
     },
   });
 };
+
+export const getFollowers = async (username: string) => {
+  const followers = await prisma.follow.findMany({
+    where: {
+      following: {
+        username: username,
+      },
+    },
+  });
+  return followers;
+};
