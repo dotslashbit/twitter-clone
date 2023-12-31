@@ -14,6 +14,8 @@ generator client {
 model User {
   id  String @id
   username String @unique
+  followers Follow[] @relation("Following")
+  following Follow[] @relation("Follower")
 }
 
 model Tweet {
@@ -44,4 +46,16 @@ model Comment {
   createdAt DateTime @default(now())
   tweet Tweet @relation(fields: [tweetId], references: [id])
   @@index([tweetId])
+}
+
+model Follow {
+  id        Int      @id @default(autoincrement())
+  follower  User     @relation("Follower", fields: [followerId], references: [id])
+  followerId String
+  following User     @relation("Following", fields: [followingId], references: [id])
+  followingId String
+  createdAt DateTime @default(now())
+  
+  @@index([followerId])
+  @@index([followingId])
 }

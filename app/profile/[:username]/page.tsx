@@ -5,6 +5,7 @@ import { getComments } from "@/actions/createComment";
 import TweetList from "@/components/TweetList";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { onFollow } from "@/actions/follow";
 
 type Tweet = {
   id: number;
@@ -108,6 +109,10 @@ const ProfilePage = () => {
         </div>
         <p className="text-xl">@{user?.username}</p>
       </div>
+      <form action={onFollow}>
+        <input type="hidden" name="followingId" value={user?.id} />
+        <button type="submit">FOLLOW</button>
+      </form>
       <ul className="mt-4 w-full max-w-md">
         {tweets.map((tweet) => (
           <li key={tweet.id}>
