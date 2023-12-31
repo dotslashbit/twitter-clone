@@ -28,3 +28,14 @@ export const getFollowers = async (username: string) => {
   });
   return followers;
 };
+
+export const getFollowing = async (username: string) => {
+  const following = await prisma.follow.findMany({
+    where: {
+      follower: {
+        username: username,
+      },
+    },
+  });
+  return following;
+};
