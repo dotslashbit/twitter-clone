@@ -58,9 +58,9 @@ const TweetDetailPage = async () => {
       <ul className="mt-4 w-full max-w-md">
         {commentsForCurrentTweet(tweetId).map((comment) => {
           return (
-            <div key={comment.id}>
+            <li key={comment.id}>
               <p>{comment.content}</p>
-            </div>
+            </li>
           );
         })}
       </ul>
