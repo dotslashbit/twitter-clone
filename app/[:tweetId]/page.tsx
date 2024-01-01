@@ -10,6 +10,17 @@ type Tweet = {
   // Add other properties of a tweet as needed
 };
 
+type Comment = {
+  tweetId: number;
+  content: string;
+  // Add other properties of a comment as needed
+};
+
+type Like = {
+  tweetId: number;
+  // Add other properties of a comment as needed
+};
+
 const TweetDetailPage = async () => {
   const tweets = await getTweets();
   const comments = await getComments();
@@ -23,15 +34,16 @@ const TweetDetailPage = async () => {
   const tweet = tweets.find((tweet: Tweet) => tweet.id === tweetId);
 
   const commentsForCurrentTweet = (tweetId: number) => {
-    return comments.filter((comment) => comment.tweetId === tweetId);
+    return comments.filter((comment: Comment) => comment.tweetId === tweetId);
   };
 
   const countLikes = (tweetId: number) => {
-    return likes.filter((like) => like.tweetId === tweetId).length;
+    return likes.filter((like: Like) => like.tweetId === tweetId).length;
   };
 
   const countcomments = (tweetId: number) => {
-    return comments.filter((comment) => comment.tweetId === tweetId).length;
+    return comments.filter((comment: Comment) => comment.tweetId === tweetId)
+      .length;
   };
 
   if (tweet === undefined) {
