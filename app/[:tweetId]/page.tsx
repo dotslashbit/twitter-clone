@@ -11,6 +11,7 @@ type Tweet = {
 };
 
 type Comment = {
+  id: number;
   tweetId: number;
   content: string;
   // Add other properties of a comment as needed
@@ -74,7 +75,7 @@ const TweetDetailPage = async () => {
       <p>{countLikes(tweetId)} likes</p>
       <p>{countcomments(tweetId)} comments</p>
       <ul className="mt-4 w-full max-w-md">
-        {commentsForCurrentTweet(tweetId).map((comment) => {
+        {commentsForCurrentTweet(tweetId).map((comment: Comment) => {
           return (
             <li key={comment.id}>
               <p>{comment.content}</p>
