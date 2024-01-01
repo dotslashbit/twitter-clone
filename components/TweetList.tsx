@@ -29,7 +29,7 @@ const TweetList = ({ tweet, user, tweetId, likes, comments }) => {
           {countcomments(tweetId)} comments
         </p>
       </div>
-      <Like classname="text-blue-500 cursor-pointer" tweetId={tweetId} />
+      <Like tweetId={tweetId} />
     </li>
   );
 };

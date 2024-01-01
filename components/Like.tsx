@@ -25,7 +25,7 @@ const Like = ({ tweetId }: { tweetId: number }) => {
   // };
 
   return (
-    <div>
+    <div className="text-blue-500 cursor-pointer">
       {/* <p>1</p> */}
       <button
         className="flex items-center text-blue-500 hover:text-blue-700 focus:outline-none"
