@@ -55,7 +55,7 @@ const TweetsList = async ({ tweetId }) => {
           {countcomments(tweetId)} comments
         </p>
       </div>
-      <Like classname="text-blue-500 cursor-pointer" tweetId={tweetId} />
+      <Like tweetId={tweetId} />
     </li>
   );
 };
