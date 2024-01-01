@@ -5,6 +5,10 @@ import React from "react";
 import { createUser } from "@/actions/createUser";
 import TweetsList from "@/components/TweetsList";
 
+type Tweet = {
+  id: number;
+};
+
 const HomePage = async () => {
   const tweets = await getTweets();
   const user = await currentUser();
@@ -30,7 +34,7 @@ const HomePage = async () => {
       <div className="flex flex-col items-center">
         <TweetForm />
         <ul className="mt-4 w-full max-w-md">
-          {tweets.map((tweet) => (
+          {tweets.map((tweet: Tweet) => (
             <TweetsList key={tweet.id} tweetId={tweet.id} />
           ))}
         </ul>
