@@ -4,6 +4,12 @@ import { getLikes } from "@/actions/likes";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/nextjs";
 
+type Tweet = {
+  id: number;
+  content: string;
+  // Add other properties of a tweet as needed
+};
+
 const TweetDetailPage = async () => {
   const tweets = await getTweets();
   const comments = await getComments();
@@ -14,7 +20,7 @@ const TweetDetailPage = async () => {
 
   console.log(likes);
 
-  const tweet = tweets.find((tweet) => tweet.id === tweetId);
+  const tweet = tweets.find((tweet: Tweet) => tweet.id === tweetId);
 
   const commentsForCurrentTweet = (tweetId: number) => {
     return comments.filter((comment) => comment.tweetId === tweetId);
