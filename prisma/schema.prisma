@@ -16,6 +16,7 @@ model User {
   username String @unique
   followers Follow[] @relation("Following")
   following Follow[] @relation("Follower")
+  retweets  Retweet[]
 }
 
 model Tweet {
@@ -26,6 +27,7 @@ model Tweet {
   createdAt DateTime @default(now())
   likes     Like[]
   comments Comment[]
+  retweets  Retweet[]
 
 }
 
@@ -58,4 +60,18 @@ model Follow {
   
   @@index([followerId])
   @@index([followingId])
+}
+
+
+model Retweet {
+  id        Int      @id @default(autoincrement())
+  username  String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [username], references: [username])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+
+  @@unique([username, tweetId])
+  @@index([tweetId])
+  @@index([username])
 }

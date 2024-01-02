@@ -6,9 +6,12 @@ import { getTweets } from "@/actions/createTweet";
 import { clerkClient, currentUser } from "@clerk/nextjs";
 import { getLikes } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
+import RetweetForm from "./RetweetForm";
 
 const TweetsList = async ({ tweetId }) => {
   const tweets = await getTweets();
+
+  const currentUserData = await currentUser();
 
   const likes = await getLikes();
   const comments = await getComments();
@@ -56,6 +59,7 @@ const TweetsList = async ({ tweetId }) => {
         </p>
       </div>
       <Like tweetId={tweetId} />
+      <RetweetForm tweetId={tweetId} username={currentUserData.username} />
     </li>
   );
 };
