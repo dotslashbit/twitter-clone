@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export const retweet = async (formData: FormData) => {
   const tweetId = Number(formData.get("tweetId"));
   const username = formData.get("username") as string;
-  return await prisma.retweet.create({
+  await prisma.retweet.create({
     data: {
       tweetId: tweetId,
       username: username,
@@ -17,6 +17,8 @@ export const retweet = async (formData: FormData) => {
 
 export const getRetweets = async () => {
   return await prisma.retweet.findMany({
-    where: {},
+    include: {
+      tweet: true,
+    },
   });
 };
