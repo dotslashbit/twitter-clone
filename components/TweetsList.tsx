@@ -7,6 +7,7 @@ import { clerkClient, currentUser } from "@clerk/nextjs";
 import { getLikes } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
 import RetweetForm from "./RetweetForm";
+import { getRetweets } from "@/actions/retweet";
 
 const TweetsList = async ({ tweetId }) => {
   const tweets = await getTweets();
@@ -15,6 +16,7 @@ const TweetsList = async ({ tweetId }) => {
 
   const likes = await getLikes();
   const comments = await getComments();
+  const retweets = await getRetweets();
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
   const userId = tweet.userId;
@@ -30,6 +32,11 @@ const TweetsList = async ({ tweetId }) => {
   const countcomments = (tweetId) => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
+
+  const countretweets = (tweetId) => {
+    return retweets.filter((retweet) => retweet.tweetId === tweetId).length;
+  };
+
   return (
     <li className="my-10">
       <Link href={`/${tweetId}`}>
@@ -56,6 +63,9 @@ const TweetsList = async ({ tweetId }) => {
         <p className="text-xs text-gray-500">{countLikes(tweetId)} likes</p>
         <p className="text-xs text-gray-500">
           {countcomments(tweetId)} comments
+        </p>
+        <p className="text-xs text-gray-500">
+          {countretweets(tweetId)} retweets
         </p>
       </div>
       <Like tweetId={tweetId} />

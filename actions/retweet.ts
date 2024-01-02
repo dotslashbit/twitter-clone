@@ -14,3 +14,9 @@ export const retweet = async (formData: FormData) => {
   });
   revalidatePath("/home");
 };
+
+export const getRetweets = async () => {
+  return await prisma.retweet.findMany({
+    where: {},
+  });
+};
