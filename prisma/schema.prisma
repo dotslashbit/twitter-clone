@@ -87,6 +87,7 @@ model Bookmark {
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
 
   @@index([username, tweetId])
+  @@unique([username, tweetId])
   @@index([tweetId])
   @@index([username])
 }
