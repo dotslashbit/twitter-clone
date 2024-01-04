@@ -8,6 +8,7 @@ import { getLikes } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
 import RetweetForm from "./RetweetForm";
 import { getRetweets } from "@/actions/retweet";
+import BookmarkForm from "./BookmarkForm";
 
 const TweetsList = async ({ tweetId }) => {
   const tweets = await getTweets();
@@ -70,6 +71,7 @@ const TweetsList = async ({ tweetId }) => {
       </div>
       <Like tweetId={tweetId} />
       <RetweetForm tweetId={tweetId} username={currentUserData.username} />
+      <BookmarkForm tweetId={tweetId} username={currentUserData.username} />
     </li>
   );
 };
