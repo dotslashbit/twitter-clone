@@ -10,7 +10,7 @@ import RetweetForm from "./RetweetForm";
 import { getRetweets } from "@/actions/retweet";
 import BookmarkForm from "./BookmarkForm";
 
-const TweetsList = async ({ tweetId }) => {
+const TweetsList = async ({ tweetId }: { tweetId: number }) => {
   const tweets = await getTweets();
 
   const currentUserData = await currentUser();
@@ -20,21 +20,24 @@ const TweetsList = async ({ tweetId }) => {
   const retweets = await getRetweets();
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
+  if (!tweet) {
+    return null;
+  }
   const userId = tweet.userId;
   // console.log("userId", userId);
   const user = await clerkClient.users.getUser(userId);
   // console.log("user", user);
 
   // await createUser(user?.id);
-  const countLikes = (tweetId) => {
+  const countLikes = (tweetId: number) => {
     return likes.filter((like) => like.tweetId === tweetId).length;
   };
 
-  const countcomments = (tweetId) => {
+  const countcomments = (tweetId: number) => {
     return comments.filter((comment) => comment.tweetId === tweetId).length;
   };
 
-  const countretweets = (tweetId) => {
+  const countretweets = (tweetId: number) => {
     return retweets.filter((retweet) => retweet.tweetId === tweetId).length;
   };
 
