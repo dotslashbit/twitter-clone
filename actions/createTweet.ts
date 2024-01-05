@@ -32,3 +32,15 @@ export const getTweets = async () => {
   });
   return tweets;
 };
+
+export const getTweetById = async (id: number) => {
+  const tweet = await prisma.tweet.findMany({
+    where: {
+      id: id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return tweet;
+};

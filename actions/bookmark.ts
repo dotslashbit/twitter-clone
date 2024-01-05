@@ -39,3 +39,18 @@ export const unbookmarkTweet = async (formData: FormData) => {
   });
   revalidatePath("/home");
 };
+
+export const getBookmarks = async (username: string) => {
+  const bookmarks = await prisma.bookmark.findMany({
+    where: {
+      username: username,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const bookmarkedTweetIds = bookmarks.map((bookmark) => bookmark.tweetId);
+
+  return bookmarkedTweetIds;
+};

@@ -42,7 +42,7 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
   };
 
   return (
-    <li className="my-10">
+    <li className="my-10 flex flex-col items-center">
       <Link href={`/${tweetId}`}>
         <div>
           <div className="flex items-center gap-1">
