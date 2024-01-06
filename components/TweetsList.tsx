@@ -64,7 +64,10 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
       </Link>
       <CommentForm tweetId={tweetId} />
       <div className="flex gap-5 my-1">
-        <p className="text-xs text-gray-500">{countLikes(tweetId)} likes</p>
+        <div className="flex gap-1">
+          <p className="text-xs text-gray-500">{countLikes(tweetId)}</p>
+          <Like tweetId={tweetId} />
+        </div>
         <p className="text-xs text-gray-500">
           {countcomments(tweetId)} comments
         </p>
@@ -72,7 +75,7 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
           {countretweets(tweetId)} retweets
         </p>
       </div>
-      <Like tweetId={tweetId} />
+
       <RetweetForm tweetId={tweetId} username={currentUserData.username} />
       <BookmarkForm tweetId={tweetId} username={currentUserData.username} />
     </li>
