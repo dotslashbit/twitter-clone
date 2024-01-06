@@ -48,10 +48,10 @@ const TweetDetailPage = async () => {
   };
 
   if (tweet === undefined) {
-    return <div>loading...</div>;
+    return <div>error...</div>;
   }
   if (tweetId === null || tweet === undefined) {
-    return <div>loading...</div>;
+    return <div>error...</div>;
   }
   const tweetCreator = await clerkClient.users.getUser(tweet.userId);
   return (
