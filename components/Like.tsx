@@ -31,7 +31,7 @@ const Like = ({ tweetId }: { tweetId: number }) => {
         className="flex items-center text-blue-500 hover:text-blue-700 focus:outline-none"
         onClick={handleLike}
       >
-        <FontAwesomeIcon icon={faHeart} className="mr-1 text-sm" />
+        <FontAwesomeIcon icon={faHeart} className="mr-1 text-sm" color="grey" />
       </button>
     </div>
   );

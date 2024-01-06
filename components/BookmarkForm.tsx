@@ -3,6 +3,9 @@ import {
   isTweetBookmarked,
   unbookmarkTweet,
 } from "@/actions/bookmark";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faBookmark as faBookmarkSolid } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BookmarkForm = async ({
   tweetId,
@@ -17,7 +20,11 @@ const BookmarkForm = async ({
       <input type="hidden" name="tweetId" value={tweetId} />
       <input type="hidden" name="username" value={username} />
       <button type="submit" className="text-xs text-gray-500">
-        {isBookmarked ? "Unbookmark" : "Bookmark"}
+        {isBookmarked ? (
+          <FontAwesomeIcon icon={faBookmark} color="grey" />
+        ) : (
+          <FontAwesomeIcon icon={faBookmark} color="cyan" />
+        )}
       </button>
     </form>
   );

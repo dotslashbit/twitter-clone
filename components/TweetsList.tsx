@@ -9,6 +9,9 @@ import { getComments } from "@/actions/createComment";
 import RetweetForm from "./RetweetForm";
 import { getRetweets } from "@/actions/retweet";
 import BookmarkForm from "./BookmarkForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
 const TweetsList = async ({ tweetId }: { tweetId: number }) => {
   const tweets = await getTweets();
@@ -42,7 +45,7 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
   };
 
   return (
-    <li className="my-10 flex flex-col items-center">
+    <li className="my-10 flex flex-col items-start">
       <Link href={`/${tweetId}`}>
         <div>
           <div className="flex items-center gap-1">
@@ -59,25 +62,30 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
               <p className="text-sm text-gray-500">@{tweet.username}</p>
             </div>
           </div>
-          <p className="text-lg mt-2">{tweet.content}</p>
+          <p className="text-lg mt-2 ml-10">{tweet.content}</p>
         </div>
       </Link>
       <CommentForm tweetId={tweetId} />
-      <div className="flex gap-5 my-1">
-        <div className="flex gap-1">
-          <p className="text-xs text-gray-500">{countLikes(tweetId)}</p>
-          <Like tweetId={tweetId} />
+      <div className="w-full">
+        <div className="flex my-1 items-center justify-between mx-10">
+          <div className="flex gap-1">
+            <p className="text-xs text-gray-500">{countLikes(tweetId)}</p>
+            <Like tweetId={tweetId} />
+          </div>
+          <div className="flex gap-1">
+            <p className="text-xs text-gray-500">{countcomments(tweetId)}</p>
+            <FontAwesomeIcon icon={faComment} color="grey" />
+          </div>
+          <div className="flex gap-1 items-center">
+            <p className="text-xs text-gray-500">{countretweets(tweetId)}</p>
+            <RetweetForm
+              tweetId={tweetId}
+              username={currentUserData.username}
+            />
+          </div>
+          <BookmarkForm tweetId={tweetId} username={currentUserData.username} />
         </div>
-        <p className="text-xs text-gray-500">
-          {countcomments(tweetId)} comments
-        </p>
-        <p className="text-xs text-gray-500">
-          {countretweets(tweetId)} retweets
-        </p>
       </div>
-
-      <RetweetForm tweetId={tweetId} username={currentUserData.username} />
-      <BookmarkForm tweetId={tweetId} username={currentUserData.username} />
     </li>
   );
 };
