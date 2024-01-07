@@ -4,7 +4,7 @@ import Like from "./Like";
 import { createUser } from "@/actions/createUser";
 import { getTweets } from "@/actions/createTweet";
 import { clerkClient, currentUser } from "@clerk/nextjs";
-import { getLikes } from "@/actions/likes";
+import { getLikes, isLiked } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
 import RetweetForm from "./RetweetForm";
 import { getRetweets } from "@/actions/retweet";
@@ -21,6 +21,7 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
   const likes = await getLikes();
   const comments = await getComments();
   const retweets = await getRetweets();
+  const liked = await isLiked(tweetId);
 
   const tweet = tweets.find((tweet) => tweet.id === tweetId);
   if (!tweet) {
@@ -70,7 +71,7 @@ const TweetsList = async ({ tweetId }: { tweetId: number }) => {
         <div className="flex my-1 items-center justify-between mx-10">
           <div className="flex gap-1">
             <p className="text-xs text-gray-500">{countLikes(tweetId)}</p>
-            <Like tweetId={tweetId} />
+            <Like tweetId={tweetId} liked={liked} />
           </div>
           <div className="flex gap-1">
             <p className="text-xs text-gray-500">{countcomments(tweetId)}</p>
