@@ -5,7 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
-const Like = ({ tweetId, liked }: { tweetId: number; liked: Boolean }) => {
+const Like = ({
+  tweetId,
+  liked = false,
+}: {
+  tweetId: number;
+  liked?: Boolean;
+}) => {
   const handleLike = async () => {
     console.log("Like button clicked");
     try {
