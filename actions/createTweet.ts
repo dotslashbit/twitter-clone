@@ -23,14 +23,18 @@ export const createTweet = async (formData: FormData) => {
   });
   revalidatePath("/home");
 };
-
 export const getTweets = async () => {
-  const tweets = await prisma.tweet.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return tweets;
+  try {
+    const tweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return tweets;
+  } catch (error) {
+    console.error("Failed to get tweets:", error);
+    throw error;
+  }
 };
 
 export const getTweetById = async (id: number) => {
