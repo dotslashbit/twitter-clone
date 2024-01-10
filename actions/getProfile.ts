@@ -22,7 +22,7 @@ export const getProfile = async (username: string) => {
   const user = {
     id: userFromDB.id,
     username: userFromDB.username,
-    profileImg: userFromClerk.imageUrl,
+    imageUrl: userFromClerk.imageUrl,
     firstName: userFromClerk.firstName,
     lastName: userFromClerk.lastName,
     // Add other properties from userFromClerk if needed

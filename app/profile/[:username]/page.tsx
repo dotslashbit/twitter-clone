@@ -18,7 +18,7 @@ type Tweet = {
 type User = {
   id: string;
   username: string;
-  profileImg: string;
+  imageUrl: string;
   firstName: string | null;
   lastName: string | null;
 };
@@ -152,7 +152,7 @@ const ProfilePage = () => {
     <div className="flex flex-col items-center p-8  text-gray-800">
       <img
         className="w-48 h-48 rounded-full object-cover"
-        src={user?.profileImg}
+        src={user.imageUrl}
         alt="user image"
       />
       <div className="mt-4 text-center text-white">

@@ -14,7 +14,7 @@ const TweetList = ({ tweet, user, tweetId, likes, comments }) => {
   return (
     <li>
       <div className="flex items-center gap-4 text-white">
-        <img className="w-10 h-10" src={user.profileImg} alt="profile image" />
+        <img className="w-10 h-10" src={user.imageUrl} alt="profile image" />
         <div className="flex gap-1 font-bold">
           <p className="text-lg">{user.firstName}</p>
           <p className="text-lg">{user.lastName}</p>
