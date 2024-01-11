@@ -3,6 +3,7 @@ import { getTweets } from "@/actions/createTweet";
 import { getLikes } from "@/actions/likes";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/nextjs";
+import { getRetweets } from "@/actions/retweet";
 
 type Tweet = {
   id: number;
@@ -22,13 +23,17 @@ type Like = {
   // Add other properties of a comment as needed
 };
 
-const TweetDetailPage = async () => {
+const TweetDetailPage = async ({ params }) => {
   const tweets = await getTweets();
   const comments = await getComments();
   const likes = await getLikes();
-  const headersList = headers();
-  const pathname = headersList.get("next-url");
-  const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
+  const retweets = await getRetweets();
+  console.log("searchParams", params);
+  const tweetId = Number(params[":tweetId"]);
+  console.log("tweetId", tweetId);
+  // const headersList = headers();
+  // const pathname = headersList.get("next-url");
+  // const tweetId = pathname ? Number(pathname.split("/")[1]) : null;
 
   console.log(likes);
 
@@ -47,13 +52,12 @@ const TweetDetailPage = async () => {
       .length;
   };
 
-  if (tweet === undefined) {
-    return <div>error...</div>;
-  }
-  if (tweetId === null || tweet === undefined) {
-    return <div>error...</div>;
-  }
+  const countretweets = (tweetId: number) => {
+    return retweets.filter((retweet) => retweet.tweetId === tweetId).length;
+  };
+
   const tweetCreator = await clerkClient.users.getUser(tweet.userId);
+  console.log(tweetCreator);
   return (
     <div>
       <div className="flex items-center gap-1">
@@ -74,6 +78,7 @@ const TweetDetailPage = async () => {
       {/* <CommentForm tweetId={tweetId} /> */}
       <p>{countLikes(tweetId)} likes</p>
       <p>{countcomments(tweetId)} comments</p>
+      <p>{countretweets(tweetId)} retweets</p>
       <ul className="mt-4 w-full max-w-md">
         {commentsForCurrentTweet(tweetId).map((comment: Comment) => {
           return (
