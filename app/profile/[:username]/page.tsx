@@ -1,11 +1,9 @@
-"use client";
-import { getProfile, getTweetsForProfile } from "@/actions/getProfile";
+import { getProfile } from "@/actions/getProfile";
 import { getLikes } from "@/actions/likes";
 import { getComments } from "@/actions/createComment";
 import TweetList from "@/components/TweetList";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { getFollowers, getFollowing, onFollow } from "@/actions/follow";
+import { getTweets } from "@/actions/createTweet";
 
 type Tweet = {
   id: number;
@@ -52,100 +50,15 @@ type Following = {
   createdAt: Date;
 };
 
-const ProfilePage = () => {
-  const pathname = usePathname();
-  const username = pathname.split("/")[2];
-  const [user, setUser] = useState<User | null>(null);
-  const [tweets, setTweets] = useState<Tweet[]>([]);
-  const [likes, setLikes] = useState<Like[]>([]);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [userLoading, setUserLoading] = useState(true);
-  const [tweetsLoading, setTweetsLoading] = useState(true);
-  const [likesLoading, setLikesLoading] = useState(true);
-  const [commentsLoading, setCommentsLoading] = useState(true);
-  const [followers, setFollowers] = useState<Follower[]>([]);
-  const [followersLoading, setFollowersLoading] = useState(true);
-  const [following, setFollowing] = useState<Following[]>([]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userProfile = await getProfile(username);
-      setUser(userProfile);
-      setUserLoading(false);
-    };
-
-    fetchUser();
-  }, [username]); // dependency array includes username to refetch when it changes
-
-  useEffect(() => {
-    const fetchTweets = async () => {
-      const tweets = await getTweetsForProfile(username);
-      setTweets(tweets);
-      setTweetsLoading(false);
-    };
-
-    fetchTweets();
-  }, [username]);
-
-  useEffect(() => {
-    const fetchLikes = async () => {
-      const likes = await getLikes();
-      setLikes(likes);
-      setLikesLoading(false);
-    };
-
-    fetchLikes();
-  }, [username]);
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      const comments = await getComments();
-      setComments(comments);
-      setCommentsLoading(false);
-    };
-
-    fetchComments();
-  }, [username]);
-
-  useEffect(() => {
-    const fetchFollowers = async () => {
-      if (!user) {
-        return;
-      }
-      const followers = await getFollowers(user.username);
-      setFollowers(followers);
-      setFollowersLoading(false);
-    };
-
-    if (user) {
-      fetchFollowers();
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const fetchFollowing = async () => {
-      if (!user) {
-        return;
-      }
-
-      const following = await getFollowing(user.username);
-      setFollowing(following);
-    };
-
-    if (user) {
-      fetchFollowing();
-    }
-  }, [user]);
-
-  if (
-    userLoading ||
-    tweetsLoading ||
-    likesLoading ||
-    commentsLoading ||
-    followersLoading
-  ) {
-    return <div>Loading...</div>;
-  }
+const ProfilePage = async ({ params }) => {
+  const tweets = await getTweets();
+  console.log("searchParams", params);
+  const username = params[":username"];
+  const user = await getProfile(username);
+  const followers = await getFollowers(user.username);
+  const following = await getFollowing(user.username);
+  const likes = await getLikes();
+  const comments = await getComments();
 
   console.log("tweetsssssss", tweets);
   return (
