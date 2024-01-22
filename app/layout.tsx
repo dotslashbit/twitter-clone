@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
+        <body className="h-screen overflow-auto">
           <nav className="flex items-center justify-between flex-wrap p-6 bg-gray-800">
             <Link href="/">
               <svg

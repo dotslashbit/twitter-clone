@@ -59,7 +59,7 @@ const TweetDetailPage = async ({ params }) => {
   const tweetCreator = await clerkClient.users.getUser(tweet.userId);
   console.log(tweetCreator);
   return (
-    <div>
+    <div className="flex justify-center items-center flex-col">
       <div className="flex items-center gap-1">
         <img
           src={tweetCreator.imageUrl}
@@ -67,11 +67,10 @@ const TweetDetailPage = async ({ params }) => {
           className="w-10 h-10 rounded-full"
         />
 
-        {/* <div className="flex items-center gap-5">
-          <p>{`${user?.firstName} ${user?.lastName}`}</p>
+        <div className="flex items-center gap-5">
+          <p>{`${tweetCreator?.firstName} ${tweetCreator?.lastName}`}</p>
           <p className="text-sm">@{tweet.username}</p>
-        </div> */}
-        <p className="text-white">@{tweetCreator.username}</p>
+        </div>
       </div>
       <p>{tweet?.content}</p>
       {/* {console.log(tweetId)} */}
